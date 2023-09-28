@@ -6,7 +6,7 @@ on:
       MANIFEST_URL:
         description: 'MANIFEST_URL (if want to use SSH keys, use git@github.com:XXXXX)'
         required: true
-        default: 'https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni'
+        default: 'https://github.com/yuweiyuan8/platform_manifest_twrp_omni'
       MANIFEST_BRANCH:
         description: 'MANIFEST_BRANCH'
         required: true
@@ -146,8 +146,6 @@ jobs:
 
     - name: Building recovery
       run: |
-        sed -i 's/char* strchrnul/char* strrchr/g' bionic/libc/include/string.h
-
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         lunch ${{ github.event.inputs.MAKEFILE_NAME }}-eng && make clean && make ${{ github.event.inputs.BUILD_TARGET }}image -j$(nproc --all)
